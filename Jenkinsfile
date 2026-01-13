@@ -1,30 +1,47 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "jenkins-nginx-demo"
+        CONTAINER_NAME = "nginx-demo"
+    }
+
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                echo 'Checkout stage running'
+                git 'https://github.com/Vishal-naik-01/Jenkins_CI-CD_Pipeline.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Build stage running'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
-        stage('Test') {
+        stage('Stop Old Container') {
             steps {
-                echo 'Test stage running'
+                sh '''
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
+                '''
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy using Nginx') {
             steps {
-                echo 'Deploy stage running'
+                sh 'docker run -d -p 80:80 --name $CONTAINER_NAME $IMAGE_NAME'
             }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Website deployed successfully using Jenkins CI/CD'
+        }
+        failure {
+            echo '❌ Deployment failed'
         }
     }
 }
