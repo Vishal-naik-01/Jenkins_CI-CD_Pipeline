@@ -3,38 +3,28 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                echo 'Cloning GitHub repository...'
-                git 'https://github.com/Dipalik1229/Jenkins_CI-CD_Pipeline.git'
+                echo 'Checkout stage running'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Build stage started'
+                echo 'Build stage running'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests'
+                echo 'Test stage running'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application'
+                echo 'Deploy stage running'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline executed successfully'
-        }
-        failure {
-            echo 'Pipeline failed'
         }
     }
 }
