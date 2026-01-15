@@ -8,6 +8,12 @@ pipeline {
 
     stages {
 
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Vishal-naik-01/Jenkins_CI-CD_Pipeline.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
@@ -26,6 +32,16 @@ pipeline {
         stage('Deploy using Nginx') {
             steps {
                 sh 'docker run -d -p 80:80 --name $CONTAINER_NAME $IMAGE_NAME'
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                echo "====== Index.html in Container ======"
+                docker exec $CONTAINER_NAME cat /usr/share/nginx/html/index.html
+                echo "====================================="
+                '''
             }
         }
     }
