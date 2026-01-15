@@ -1,12 +1,176 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Jenkins CI/CD Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jenkins + Docker Integration Successful</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 720px;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 2rem 2rem 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #e8f0fe;
+      color: var(--accent);
+      border: 1px solid #cfe0ff;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      margin: 1rem 0 0.5rem;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0.5rem 0 1.25rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .status-item {
+      background: #f9fafb;
+      border: 1px solid #eef2f7;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .status-item h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .status-item code {
+      display: inline-block;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9rem;
+    }
+
+    .footer {
+      margin-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+      transition: transform 0.08s ease-in-out, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.28);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .status {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>🚀 Jenkins CI/CD Pipeline</h1>
-    <p>Deployed automatically using Docker & Nginx</p>
-    <h1>Deployed via Jenkins CI/CD 🚀</h1>
+  <main class="container">
+    <section class="card" role="status" aria-live="polite">
+      <span class="badge" aria-label="Integration status">
+        ✅ Integration OK
+      </span>
 
+      <h1>Jenkins + Docker Integration Successful</h1>
+      <p>Your Jenkins server is now able to run Docker commands successfully.</p>
+
+      <div class="status" aria-label="Environment checks">
+        <div class="status-item">
+          <h3>Jenkins user groups</h3>
+          <p>Ensure the <strong>jenkins</strong> user is in the <strong>docker</strong> group:</p>
+          <code>groups jenkins</code>
+        </div>
+        <div class="status-item">
+          <h3>Docker socket permissions</h3>
+          <p>Socket should be owned by <strong>root:docker</strong> with <strong>660</strong> permissions:</p>
+          <code>ls -l /var/run/docker.sock</code>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button class="btn" onclick="alert('Looks good! Trigger a Jenkins job that runs: docker version')">
+          Run a quick check
+        </button>
+        <span class="hint">Tip: In a Jenkins pipeline, try <code>sh 'docker version'</code> to verify.</span>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
+```
+
